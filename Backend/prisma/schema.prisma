@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Racha {
+  id         Int        @id @default(autoincrement())
+  data       DateTime
+  valorTotal Float
+  createdAt  DateTime   @default(now())
+
+  presencas  Presenca[]
+}
+
+model Jogador {
+  id        Int        @id @default(autoincrement())
+  nome      String
+  createdAt DateTime   @default(now())
+
+  presencas Presenca[]
+}
+
+model Presenca {
+  id            Int      @id @default(autoincrement())
+  rachaId       Int
+  jogadorId     Int
+  pagou         Boolean
+  tipoPagamento String
+  valorPago     Float
+  isGoleiro     Boolean
+
+  racha   Racha   @relation(fields: [rachaId], references: [id])
+  jogador Jogador @relation(fields: [jogadorId], references: [id])
+}
