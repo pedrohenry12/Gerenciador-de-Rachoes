@@ -11,6 +11,7 @@ model Racha {
   id         Int        @id @default(autoincrement())
   data       DateTime
   valorTotal Float
+  valorPorJogador Float
   createdAt  DateTime   @default(now())
 
   presencas  Presenca[]

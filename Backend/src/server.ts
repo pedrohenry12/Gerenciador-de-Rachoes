@@ -1,17 +1,17 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import rachaRoutes from "./rotas/racha.routes";
 
 const app = express();
 const PORT = 3000;
 
-// Middleware para ler JSON
 app.use(express.json());
 
-// Rota de verificação
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "OK" });
+app.get("/health", (_req, res) => {
+  res.json({ status: "OK" });
 });
 
-// Iniciar servidor
+app.use("/rachas", rachaRoutes);
+
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
 });
