@@ -36,13 +36,14 @@ router.get("/", async (_req, res) => {
 });
 
 /**
- * READ - buscar racha por id
+ * READ - buscar racha por data
  */
-router.get("/:id", async (req, res) => {
-  const id = Number(req.params.id);
+router.get("/:data", async (req, res) => {
+  const dataString = req.params.data;
+  const data = new Date(dataString);
 
-  const racha = await prisma.racha.findUnique({
-    where: { id },
+  const racha = await prisma.racha.findFirst({
+    where: { data }, 
     include: { presencas: true },
   });
 
