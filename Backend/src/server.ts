@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import rachaRoutes from "./rotas/racha.routes";
 import jogadoresRoutes from "./rotas/jogadores.routes";
 import presencaRoutes from "./rotas/presenca.routes";
@@ -6,6 +7,7 @@ import presencaRoutes from "./rotas/presenca.routes";
 const app = express();
 const PORT = 3000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
