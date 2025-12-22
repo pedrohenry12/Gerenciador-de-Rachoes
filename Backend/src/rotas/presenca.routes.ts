@@ -10,13 +10,29 @@ router.post('/', async (req, res) => {
   try { 
     const { jogadorId, rachaId, pagou, tipoPagamento, valorPago, isGoleiro } = req.body;
 
+    //regra de negocio: goleiro nao paga
+    const valorFinal = isGoleiro ? 0 : valorPago;
+    const pagouFinal = isGoleiro ? true : pagou;
+
+    //regra de negocio: um jogador so pode ter uma presenca por racha
+    const presencaExistente = await prisma.presenca.findFirst({
+      where: {
+        jogadorId,
+        rachaId
+      }
+    });
+
+    if (presencaExistente) {
+      return res.status(400).json({ error: 'Jogador já possui presença registrada para este racha' });
+    }
+
     const presenca = await prisma.presenca.create({
       data: {
         jogadorId,
         rachaId,
-        pagou,
+        pagou : pagouFinal,
         tipoPagamento,
-        valorPago,
+        valorPago: valorFinal,
         isGoleiro
       },
       include: {
