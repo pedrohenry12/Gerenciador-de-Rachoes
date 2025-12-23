@@ -1,13 +1,29 @@
-import { Link } from "react-router-dom";
-// import styles from "./navbar.module.css";
-import logo from "../logo/logo.png";
+import { Link } from "react-router-dom"
+import styles from "./navbar.module.css"
+import logo from "../logo/logo.png"
 
 export default function Navbar() {
-    return (
-        <nav>
-            <Link to="/"><img src={logo} alt="" /></Link>
-            <Link to="/gerenciamentojogadores">Jogadores</Link>
-            <Link to= "/cadastrorachas">Cadastro de rachas</Link>
-        </nav>
-     )
-    };   
+  return (
+    <nav className={styles.navbar}>
+      <Link to="/" className={styles.logo}>
+        <img src={logo} alt="Rachas" />
+      </Link>
+
+      <div className={styles.links}>
+        <Link
+          to="/gerenciamentojogadores"
+          className={styles.link}
+        >
+          Jogadores
+        </Link>
+
+        <Link
+          to="/cadastrorachas"
+          className={styles.link}
+        >
+          Cadastro de rachas
+        </Link>
+      </div>
+    </nav>
+  )
+}

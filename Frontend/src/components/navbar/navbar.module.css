@@ -1,0 +1,61 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 70px;
+
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+  z-index: 1000;
+}
+
+/* LOGO */
+.logo img {
+  height: 80px;
+}
+
+/* LINKS DESKTOP */
+.links {
+  display: flex;
+  gap: 64px;
+}
+
+.link {
+  text-decoration: none;
+  color: #000;
+
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  white-space: nowrap;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .navbar {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .logo img {
+    height: 34px;
+  }
+
+  .links {
+    gap: 24px;
+  }
+
+  .link {
+    font-size: 14px;
+  }
+}
