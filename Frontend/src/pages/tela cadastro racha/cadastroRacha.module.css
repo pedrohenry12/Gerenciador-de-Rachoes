@@ -1,0 +1,77 @@
+.container {
+  height: 100vh; /* altura real da tela menos navbar */
+  background-color: #5b73f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* CENTRALIZA verticalmente */
+
+  padding: 0; /* remove espaços feios */
+}
+
+/* Título */
+.title {
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+/* Card */
+.card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 18px;
+  padding: 28px 24px;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Inputs */
+.input {
+  height: 48px;
+  border-radius: 14px;
+  border: none;
+  background-color: #5b73f2;
+  color: #ffffff;
+  padding: 0 16px;
+  font-size: 16px;
+}
+
+.input::placeholder {
+  color: #eaeaea;
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* Botão */
+.button {
+  margin-top: 16px;
+  height: 50px;
+  border-radius: 14px;
+  border: none;
+  background-color: #5b73f2;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .card {
+    margin: 0 16px;
+  }
+}

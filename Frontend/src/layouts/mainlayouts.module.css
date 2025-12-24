@@ -1,13 +1,16 @@
 .mainContent {
-  margin-top: 70px;
-  padding: 24px;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px); /* desktop */
+  background-color: #5b73f2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
   .mainContent {
-    margin-top: 60px;
-    padding: 16px;
+    min-height: calc(100vh - 60px); /* navbar menor no mobile */
+    padding: 0; /* remove espaço verde */
   }
 }

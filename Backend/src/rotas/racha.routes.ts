@@ -8,11 +8,12 @@ const router = Router();
  */
 router.post("/", async (req, res) => {
   try {
-    const { data, valorTotal, valorPorJogador } = req.body;
+    const {local, data, valorTotal, valorPorJogador } = req.body;
 
     const racha = await prisma.racha.create({
       data: {
         data: new Date(data),
+        local,
         valorTotal,
         valorPorJogador,
       },

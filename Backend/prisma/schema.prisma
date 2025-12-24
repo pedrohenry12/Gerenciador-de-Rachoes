@@ -9,6 +9,7 @@ datasource db {
 
 model Racha {
   id         Int        @id @default(autoincrement())
+  local      String?
   data       DateTime
   valorTotal Float
   valorPorJogador Float
