@@ -16,6 +16,11 @@ export default function JogadoresPage() {
     const data = await getJogadores();
     setJogadores(data);
   }
+  function handleDeleteJogador(id: number) {
+    setJogadores((prev) =>
+      prev.filter((jogador) => jogador.id !== id)
+    );
+  }
 
   useEffect(() => {
   async function carregar() {
@@ -29,7 +34,7 @@ export default function JogadoresPage() {
 
   return (
     <div className={styles.container}>
-      <JogadoresList jogadores={jogadores} />
+      <JogadoresList jogadores={jogadores} onDelete={handleDeleteJogador} />
       <CadastroJogador onCreated={carregarJogadores} />
     </div>
   );
