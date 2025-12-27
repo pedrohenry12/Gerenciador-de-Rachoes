@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Racha" ADD COLUMN     "hora" TEXT,
+ALTER COLUMN "data" SET DATA TYPE TEXT;

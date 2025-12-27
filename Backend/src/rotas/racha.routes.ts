@@ -8,12 +8,13 @@ const router = Router();
  */
 router.post("/", async (req, res) => {
   try {
-    const {local, data, valorTotal, valorPorJogador } = req.body;
+    const {local, data, hora, valorTotal, valorPorJogador } = req.body;
 
     const racha = await prisma.racha.create({
       data: {
-        data: new Date(data),
+        data,
         local,
+        hora,
         valorTotal,
         valorPorJogador,
       },
@@ -40,8 +41,7 @@ router.get("/", async (_req, res) => {
  * READ - buscar racha por data
  */
 router.get("/:data", async (req, res) => {
-  const dataString = req.params.data;
-  const data = new Date(dataString);
+  const { data } = req.params;
 
   const racha = await prisma.racha.findFirst({
     where: { data }, 
@@ -60,12 +60,13 @@ router.get("/:data", async (req, res) => {
  */
 router.put("/:id", async (req, res) => {
   const id = Number(req.params.id);
-  const { data, valorTotal, valorPorJogador } = req.body;
+  const { data, hora, valorTotal, valorPorJogador } = req.body;
 
   const racha = await prisma.racha.update({
     where: { id },
     data: {
-      data: new Date(data),
+      data,
+      hora,
       valorTotal,
       valorPorJogador,
     },
