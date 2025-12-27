@@ -3,7 +3,7 @@ import type { Racha } from "../types/Racha";
 
 //listar
 export const getRachoes = async (): Promise<Racha[]> => {
-  const response = await api.get<Racha[]>("/rachoes");
+  const response = await api.get<Racha[]>("/rachas");
   return response.data;
 }
 
