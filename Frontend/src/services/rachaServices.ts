@@ -10,6 +10,7 @@ export const getRachoes = async (): Promise<Racha[]> => {
 //criar
 export async function createRacha(data: {
   data: string;
+  hora: string;
   local?: string;
   valorTotal: number;
   valorPorJogador: number;

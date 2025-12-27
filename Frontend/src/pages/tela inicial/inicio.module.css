@@ -1,0 +1,93 @@
+
+
+
+.page {
+  min-height: 100vh;
+  padding-top: 70px; /* espaço da navbar */
+  background-color: #4f6df5;
+  display: flex;
+  justify-content: center;
+}
+
+/* Container central */
+.container {
+  width: 100%;
+  max-width: 900px;
+  padding: 30px 20px;
+}
+
+/* Título */
+.title {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Caixa branca */
+.listWrapper {
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 20px;
+  max-height: calc(100vh - 200px); 
+  overflow-y: auto;
+}
+
+/* Lista */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card */
+.card {
+  background-color: #4f6df5;
+  border-radius: 18px;
+  padding: 22px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* Texto */
+.cardText {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Scroll */
+.listWrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listWrapper::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 10px;
+}
+
+/* 📱 Mobile */
+@media (max-width: 600px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .cardText {
+    font-size: 18px;
+  }
+
+  .listWrapper {
+    padding: 20px 15px;
+    max-height: calc(100vh - 180px);
+  }
+}

@@ -1,6 +1,7 @@
 import { getRachoes } from "../../services/rachaServices";
 import { useEffect, useState } from "react";
 import type { Racha } from "../../types/Racha"; //sempre que for importar tipos, tem que usar o "type"
+import styles from "./inicio.module.css";
 
 export default function Inicio() {
     const [rachas, setRachas] = useState<Racha[]>([]);
@@ -25,17 +26,22 @@ export default function Inicio() {
     }
 
     return (
-        <div>
-            <div>
-                <h2>Rachas</h2>
-                <ul>
-                    {rachas.map((racha) => (
-                        <li key={racha.id}>
-                           {racha.local} - {racha.data}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
+        <div className={styles.page}>
+  <div className={styles.container}>
+    <h2 className={styles.title}>Rachas</h2>
+
+    <div className={styles.listWrapper}>
+      <ul className={styles.list}>
+        {rachas.map((racha) => (
+          <li key={racha.id} className={styles.card}>
+            <span className={styles.cardText}>
+              RACHA {racha.data}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
     );
 }

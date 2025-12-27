@@ -7,6 +7,7 @@ export default function CadastroRacha() {
 
     const [local, setLocal] = useState("");
     const [data, setData] = useState("");
+    const [hora, setHora] = useState("");
     const [precoTotal, setPrecoTotal] = useState(0);
     const [valorPorJogador, setValorPorJogador] = useState(0);
 
@@ -17,6 +18,7 @@ export default function CadastroRacha() {
         await createRacha({
             data,
             local,
+            hora,
             valorTotal: precoTotal,
             valorPorJogador: valorPorJogador,
         });
@@ -46,18 +48,30 @@ export default function CadastroRacha() {
                         onChange={e => setData(e.target.value)} />
 
 
+                        <input
+                        className={styles.input}
+                        type="time"
+                        placeholder="horario..."
+                        value={hora}
+                        onChange={e => setHora(e.target.value)} />
+
+
                     <input
                         className={styles.input}
                         type="number"
                         placeholder="Preço..."
                         value={precoTotal}
                         onChange={e => setPrecoTotal(Number(e.target.value))} />
+
+
                     <input
                         className={styles.input}
                         type="number"
                         placeholder="Valor p/jogador..."
                         value={valorPorJogador}
                         onChange={e => setValorPorJogador(Number(e.target.value))} />
+
+
                     <button className={styles.button} type="submit">
                         SALVAR
                     </button>
