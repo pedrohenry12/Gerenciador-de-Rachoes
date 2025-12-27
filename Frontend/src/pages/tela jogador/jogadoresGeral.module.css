@@ -1,9 +1,10 @@
 .container {
   min-height: 100vh;
+  padding-top: 70px;
   background: #5873f3;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   gap: 60px;
   padding: 40px;
 }

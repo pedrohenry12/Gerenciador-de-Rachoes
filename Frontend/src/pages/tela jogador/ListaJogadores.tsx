@@ -28,10 +28,29 @@ export default function ListaJogadores({ jogadores, onDelete }: Props) {
       <ul className={styles.list}>
         {jogadores.map((jogador) => (
           <li key={jogador.id} className={styles.item}>
-            {jogador.nome}
-            <button onClick={() => handleDelete(jogador.id)}>excluir</button>
-            <button>editar</button>
-          </li>
+  <span className={styles.name}>{jogador.nome}</span>
+
+  <div className={styles.actions}>
+    <button
+      className={styles.iconButton}
+      onClick={() => handleDelete(jogador.id)}
+    >
+      <img
+        src="https://img.icons8.com/?size=100&id=1941&format=png&color=000000"
+        alt="Excluir"
+        className={styles.icon}
+      />
+    </button>
+
+    <button className={styles.iconButton}>
+      <img
+        src="https://img.icons8.com/?size=100&id=85934&format=png&color=000000"
+        alt="Editar"
+        className={styles.icon}
+      />
+    </button>
+  </div>
+</li>
         ))}
       </ul>
     </div>
