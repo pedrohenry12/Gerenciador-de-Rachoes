@@ -4,7 +4,7 @@
 .page {
   min-height: 100vh;
   padding-top: 70px; /* espaço da navbar */
-  background-color: #4f6df5;
+  background-color: #5b73f2;
   display: flex;
   justify-content: center;
 }
@@ -46,7 +46,7 @@
 
 /* Card */
 .card {
-  background-color: #4f6df5;
+  background-color: #5b73f2;
   border-radius: 18px;
   padding: 22px;
   text-align: center;
