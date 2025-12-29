@@ -8,6 +8,7 @@ export default function Inicio() {
     const [rachas, setRachas] = useState<Racha[]>([]);
     const [loading, setLoading] = useState(true);
     const [rachaSelecionadoId, setRachaSelecionadoId] = useState<number | null>(null);
+    const saldototal = rachas.reduce((total, racha) => total + (racha.valorPorJogador * 10 - racha.valorTotal), 0);
 
     useEffect(() => {
         async function carregarRachoes() {
@@ -44,7 +45,12 @@ export default function Inicio() {
       </ul>
       <Rachas rachaId={rachaSelecionadoId} />
     </div>
-    
+   <div className={styles.saldoWrapper}>
+  <span className={styles.saldoTotal}>
+    Saldo Total: R$ {saldototal}
+  </span>
+</div>
+
   </div>
 </div>
     );
