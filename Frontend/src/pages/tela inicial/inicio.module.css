@@ -18,7 +18,7 @@
 
 /* Título */
 .title {
-  color: white;
+  color: #5b73f2;
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 30px;
@@ -46,12 +46,14 @@
 
 /* Card */
 .card {
-  background-color: #5b73f2;
+  background-color: #ffffff;
   border-radius: 18px;
   padding: 22px;
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  border: 3px solid #5b73f2;
+
 }
 
 .card:hover {
@@ -60,7 +62,7 @@
 
 /* Texto */
 .cardText {
-  color: white;
+  color: #5b73f2;
   font-size: 22px;
   font-weight: bold;
   letter-spacing: 1px;
