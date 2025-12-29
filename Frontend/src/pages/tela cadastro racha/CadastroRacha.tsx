@@ -32,44 +32,59 @@ export default function CadastroRacha() {
 
             <div className={styles.card}>
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <input
-                        className={styles.input}
-                        type="text"
-                        placeholder="Local..."
-                        value={local}
-                        onChange={e => setLocal(e.target.value)} />
-
-
-                    <input
-                        className={styles.input}
-                        type="date"
-                        placeholder="Data..."
-                        value={data}
-                        onChange={e => setData(e.target.value)} />
-
-
+                    <div>
+                        <h3>local</h3>
                         <input
-                        className={styles.input}
-                        type="time"
-                        placeholder="horario..."
-                        value={hora}
-                        onChange={e => setHora(e.target.value)} />
+                            className={styles.input}
+                            type="text"
+                            placeholder="Local..."
+                            value={local}
+                            onChange={e => setLocal(e.target.value)} />
+                    </div>
 
 
-                    <input
-                        className={styles.input}
-                        type="number"
-                        placeholder="Preço..."
-                        value={precoTotal}
-                        onChange={e => setPrecoTotal(Number(e.target.value))} />
+                    <div>
+                        <h2>data</h2>
+                        <input
+                            className={styles.input}
+                            type="date"
+                            placeholder="Data..."
+                            value={data}
+                            onChange={e => setData(e.target.value)} />
+                    </div>
 
 
-                    <input
-                        className={styles.input}
-                        type="number"
-                        placeholder="Valor p/jogador..."
-                        value={valorPorJogador}
-                        onChange={e => setValorPorJogador(Number(e.target.value))} />
+                        <div>
+                            <h2>horário</h2>
+                            <input
+                            className={styles.input}
+                            type="time"
+                            placeholder="horario..."
+                            value={hora}
+                            onChange={e => setHora(e.target.value)} />
+                        </div>
+
+
+                    <div>
+                        <h2>valor total</h2>
+                        <input
+                            className={styles.input}
+                            type="number"
+                            placeholder="Preço..."
+                            value={precoTotal}
+                            onChange={e => setPrecoTotal(Number(e.target.value))} />
+                    </div>
+
+
+                    <div>
+                        <h2>valor por jogador</h2>
+                        <input
+                            className={styles.input}
+                            type="number"
+                            placeholder="Valor p/jogador..."
+                            value={valorPorJogador}
+                            onChange={e => setValorPorJogador(Number(e.target.value))} />
+                    </div>
 
 
                     <button className={styles.button} type="submit">
