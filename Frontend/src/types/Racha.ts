@@ -3,6 +3,6 @@ export interface Racha {
   local: string;
   data: string; // ISO date string
   hora: string;
-  precoTotal: number;
+  valorTotal: number;
   valorPorJogador: number;
 }

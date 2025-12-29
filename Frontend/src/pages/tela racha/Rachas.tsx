@@ -11,6 +11,8 @@ export default function Rachas({ rachaId }: RachasProps) {
   const [racha, setRacha] = useState<Racha | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const saldoRacha = racha ? racha.valorPorJogador * 10 - racha.valorTotal : 0;
+
 
   useEffect(() => {
     if (!rachaId) {
@@ -40,18 +42,34 @@ export default function Rachas({ rachaId }: RachasProps) {
   if (error) return <div className={styles.error}>{error}</div>;
   if (!racha) return null;
 
+  const closeModal = () => {
+    setRacha(null);
+  }
 
-  return (
-    <div className={styles.card}>
-      <h2>Racha - {racha.data}</h2>
 
-      <ul>
-        <li>Local: {racha.local}</li>
-        <li>Preço: R$ {racha.precoTotal}</li>
-        <li>Valor por jogador: R$ {racha.valorPorJogador}</li>
+ return (
+  <div className={styles.overlay}>
+    <div className={styles.modal}>
+      <button className={styles.close} onClick={closeModal}>✕</button>
+
+      <h2 className={styles.title}>
+        RACHA DO DIA {racha.data}
+      </h2>
+
+      <ul className={styles.info}>
+        <li><strong>LOCAL:</strong> {racha.local}</li>
+        <li><strong>PREÇO:</strong> R$ {racha.valorPorJogador}</li>
+        <li><strong>VALOR ARRECADADO:</strong> R$ {racha.valorTotal}</li>
+        <li><strong>SALDO:</strong> R$ {saldoRacha}</li>
       </ul>
 
-      <button>Lista de presença</button>
+      <h3 className={styles.subtitle}>JOGADORES PRESENTES</h3>
+
+      <button className={styles.presenca}>
+        Lista de presença
+      </button>
     </div>
-  );
+  </div>
+);
+
 }
