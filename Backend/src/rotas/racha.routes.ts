@@ -40,11 +40,11 @@ router.get("/", async (_req, res) => {
 /**
  * READ - buscar racha por data
  */
-router.get("/:data", async (req, res) => {
+router.get("/data/:data", async (req, res) => {
   const { data } = req.params;
 
   const racha = await prisma.racha.findFirst({
-    where: { data }, 
+    where: { data },
     include: { presencas: true },
   });
 
@@ -54,6 +54,7 @@ router.get("/:data", async (req, res) => {
 
   res.json(racha);
 });
+
 
 /**
  * UPDATE - atualizar racha
@@ -86,6 +87,24 @@ router.delete("/:id", async (req, res) => {
   });
 
   res.status(204).send();
+});
+
+/**
+ * READ - buscar racha por id
+ */
+router.get("/id/:id", async (req, res) => {
+  const id = Number(req.params.id);
+
+  const racha = await prisma.racha.findUnique({
+    where: { id },
+    include: { presencas: true },
+  });
+
+  if (!racha) {
+    return res.status(404).json({ error: "Racha não encontrado" });
+  }
+
+  res.json(racha);
 });
 
 export default router;

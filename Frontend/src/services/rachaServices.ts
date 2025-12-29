@@ -29,3 +29,8 @@ export const updateRacha = async (id: number, racha: Omit<Racha, "id">): Promise
   const response = await api.put<Racha>(`/rachoes/${id}`, racha);
   return response.data;
 }   
+
+export const getRachaById = async (id: number): Promise<Racha> => {
+  const response = await api.get<Racha>(`/rachas/id/${id}`);
+  return response.data;
+};
