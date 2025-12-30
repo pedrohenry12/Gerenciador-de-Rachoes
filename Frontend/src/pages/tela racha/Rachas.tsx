@@ -2,16 +2,21 @@ import { getRachaById } from "../../services/rachaServices";
 import { useEffect, useState } from "react";
 import type { Racha } from "../../types/Racha";
 import styles from "./rachas.module.css";
+import PresencaModal from "../tela inicial/PresencaModal";
+
 
 type RachasProps = {
     rachaId: number | null;
+    onClose: () => void;
 };
 
-export default function Rachas({ rachaId }: RachasProps) {
+
+export default function Rachas({ rachaId, onClose }: RachasProps) {
   const [racha, setRacha] = useState<Racha | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const saldoRacha = racha ? racha.valorPorJogador * 10 - racha.valorTotal : 0;
+  const [modalOpen, setModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -43,8 +48,9 @@ export default function Rachas({ rachaId }: RachasProps) {
   if (!racha) return null;
 
   const closeModal = () => {
-    setRacha(null);
-  }
+  // apenas fecha o modal de racha
+  // quem controla isso é o componente pai
+};
 
 
  return (
@@ -65,9 +71,12 @@ export default function Rachas({ rachaId }: RachasProps) {
 
       <h3 className={styles.subtitle}>JOGADORES PRESENTES</h3>
 
-      <button className={styles.presenca}>
+      <button className={styles.presenca} onClick={() => setModalOpen(true)}>
         Lista de presença
       </button>
+      {modalOpen && (
+        <PresencaModal onClose={() => setModalOpen(false)} />
+      )}
     </div>
   </div>
 );

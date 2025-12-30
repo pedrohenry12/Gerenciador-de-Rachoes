@@ -4,6 +4,7 @@ import type { Racha } from "../../types/Racha"; //sempre que for importar tipos,
 import styles from "./inicio.module.css";
 import Rachas from "../tela racha/Rachas";
 
+
 export default function Inicio() {
     const [rachas, setRachas] = useState<Racha[]>([]);
     const [loading, setLoading] = useState(true);
@@ -43,7 +44,11 @@ export default function Inicio() {
           </li>
         ))}
       </ul>
-      <Rachas rachaId={rachaSelecionadoId} />
+      <Rachas
+          rachaId={rachaSelecionadoId}
+          onClose={() => setRachaSelecionadoId(null)}
+        />
+
     </div>
    <div className={styles.saldoWrapper}>
   <span className={styles.saldoTotal}>
