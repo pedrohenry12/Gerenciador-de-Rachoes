@@ -1,8 +1,10 @@
-/* ===== MODAL RACHA ===== */
+/* ============================= */
+/* MODAL RACHA (NÍVEL 1) */
+/* ============================= */
 .overlayRacha {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,16 +22,22 @@
   overflow-y: auto;
 }
 
+/* ============================= */
+/* BOTÃO FECHAR (GENÉRICO) */
+/* ============================= */
 .close {
   position: absolute;
-  top: 20px;
-  right: 24px;
+  top: 18px;
+  right: 22px;
   background: none;
   border: none;
   font-size: 32px;
   cursor: pointer;
 }
 
+/* ============================= */
+/* CONTEÚDO RACHA */
+/* ============================= */
 .title {
   text-align: center;
   font-size: 32px;
@@ -54,12 +62,15 @@
   background: #4f6ef7;
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
 }
 
-/* ===== MODAL PRESENÇA ===== */
+/* ============================= */
+/* MODAL PRESENÇA (NÍVEL 2) */
+/* ============================= */
 .overlayPresenca {
   position: fixed;
   inset: 0;
@@ -76,8 +87,10 @@
   background: #5b73f2;
   border-radius: 28px;
   padding: 22px;
+  position: relative;
 }
 
+/* HEADER */
 .header {
   position: relative;
   text-align: center;
@@ -92,7 +105,7 @@
 
 .closePresenca {
   position: absolute;
-  top: 0;
+  top: -4px;
   right: 0;
   background: none;
   border: none;
@@ -101,6 +114,9 @@
   cursor: pointer;
 }
 
+/* ============================= */
+/* LISTA DE JOGADORES */
+/* ============================= */
 .lista {
   display: flex;
   flex-direction: column;
@@ -109,12 +125,14 @@
   overflow-y: auto;
 }
 
+/* ITEM */
 .item {
   background: white;
   border-radius: 20px;
   padding: 18px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   cursor: pointer;
 }
 
@@ -128,11 +146,13 @@
   display: none;
 }
 
+/* CHECKBOX */
 .checkboxCustom {
   width: 26px;
   height: 26px;
   border-radius: 50%;
   border: 2px solid #bdbdbd;
+  position: relative;
 }
 
 .item input:checked + .checkboxCustom {
@@ -146,72 +166,79 @@
   background: #4cd964;
   border-radius: 50%;
   position: absolute;
-  transform: translate(6px, 6px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* ============================= */
+/* BOTÃO SALVAR */
+/* ============================= */
+.salvar {
+  margin-top: 20px;
+  width: 100%;
+  height: 56px;
+  background: white;
+  color: #5b73f2;
+  border: none;
+  border-radius: 18px;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.salvar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+}
+
+.salvar:active {
+  transform: scale(0.97);
+}
+
+/* ============================= */
+/* MODAL JOGADORES PRESENTES (NÍVEL 3) */
+/* ============================= */
+.jogadoresPresentes {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11000;
+}
+
+.jogadoresPresentes > div {
+  background: #5b73f2;
+  color: white;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 24px;
+  padding: 22px;
+  position: relative;
+}
 
 /* ============================= */
 /* RESPONSIVIDADE */
 /* ============================= */
-
-@media (max-width: 1024px) {
-  .modalRacha {
-    max-width: 90%;
-    padding: 28px;
-  }
-
-  .title {
-    font-size: 28px;
-  }
-
-  .info {
-    font-size: 18px;
-  }
-}
-
 @media (max-width: 768px) {
   .modalRacha {
-    width: 94%;
+    width: 95%;
     padding: 24px;
-    max-height: calc(100vh - 80px);
   }
 
   .title {
     font-size: 24px;
-    margin-bottom: 24px;
   }
 
   .info {
     font-size: 16px;
   }
 
-  .presenca {
-    font-size: 16px;
-    padding: 14px;
-  }
-
-  .close {
-    font-size: 28px;
-    top: 14px;
-    right: 18px;
-  }
-
-  /* MODAL PRESENÇA */
   .modalPresenca {
-    width: 94%;
-    padding: 20px;
-  }
-
-  .header h2 {
-    font-size: 20px;
-  }
-
-  .closePresenca {
-    font-size: 30px;
-  }
-
-  .item {
-    padding: 16px;
+    width: 95%;
   }
 
   .item span {
@@ -220,50 +247,75 @@
 }
 
 @media (max-width: 480px) {
-  .modalRacha {
-    width: 100%;
-    height: 100%;
-    max-height: 100vh;
-    border-radius: 0;
-    padding: 20px;
-  }
-
-  .overlayRacha {
-    align-items: flex-start;
-  }
-
-  .title {
-    font-size: 20px;
-  }
-
-  .info {
-    font-size: 15px;
-  }
-
-  .presenca {
-    font-size: 15px;
-    padding: 14px;
-  }
-
-  .close {
-    font-size: 26px;
-    top: 12px;
-    right: 14px;
-  }
-
-  /* MODAL PRESENÇA */
+  .modalRacha,
   .modalPresenca {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    padding: 18px;
   }
 
   .lista {
-    max-height: calc(100vh - 140px);
+    max-height: calc(100vh - 200px);
   }
 
-  .item span {
-    font-size: 16px;
+  .salvar {
+    height: 50px;
+    font-size: 18px;
   }
 }
+
+/* Linha de cada jogador */
+.linhaJogador {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border-radius: 16px;
+}
+
+/* Nome do jogador */
+.nomeJogador {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 800;
+  color: #5b73f2;
+}
+
+/* Opções (Goleiro / Pix / Dinheiro) */
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Checkbox padrão escondido */
+.opcao input {
+  accent-color: #5b73f2;
+  cursor: pointer;
+}
+
+/* Desabilitado */
+.opcao input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .linhaJogador {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .opcao {
+    font-size: 13px;
+  }
+}
+

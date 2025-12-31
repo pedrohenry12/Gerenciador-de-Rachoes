@@ -38,4 +38,5 @@ model Presenca {
 
   racha   Racha   @relation(fields: [rachaId], references: [id])
   jogador Jogador @relation(fields: [jogadorId], references: [id])
+    @@unique([rachaId, jogadorId])
 }
