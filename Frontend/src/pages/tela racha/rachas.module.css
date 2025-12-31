@@ -1,31 +1,25 @@
-/* Overlay que cobre a tela toda */
-.overlay {
+/* ===== MODAL RACHA ===== */
+.overlayRacha {
   position: fixed;
-  inset: 0; /* cobre 100% da viewport */
-  background-color: rgba(0, 0, 0, 0.4);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 999;
+  justify-content: center;
+  z-index: 9000;
 }
 
-/* Card do modal */
-.modal {
+.modalRacha {
   background: #ffffff;
   width: 90%;
   max-width: 800px;
   border-radius: 24px;
   padding: 32px;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-
-  /* respeita navbar fixa sem causar scroll */
-  margin-top: 70px;
   max-height: calc(100vh - 90px);
   overflow-y: auto;
 }
 
-/* Botão X */
 .close {
   position: absolute;
   top: 20px;
@@ -33,11 +27,9 @@
   background: none;
   border: none;
   font-size: 32px;
-  font-weight: bold;
   cursor: pointer;
 }
 
-/* Título */
 .title {
   text-align: center;
   font-size: 32px;
@@ -45,7 +37,6 @@
   margin-bottom: 32px;
 }
 
-/* Lista de infos */
 .info {
   list-style: none;
   padding: 0;
@@ -56,19 +47,11 @@
   margin-bottom: 16px;
 }
 
-/* Subtítulo */
-.subtitle {
-  margin-top: 40px;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-/* Botão */
 .presenca {
   margin-top: 24px;
-  padding: 14px;
   width: 100%;
-  background-color: #4f6ef7;
+  padding: 14px;
+  background: #4f6ef7;
   color: white;
   border: none;
   border-radius: 12px;
@@ -76,22 +59,211 @@
   cursor: pointer;
 }
 
-.presenca:hover {
-  opacity: 0.9;
+/* ===== MODAL PRESENÇA ===== */
+.overlayPresenca {
+  position: fixed;
+  inset: 0;
+  background: rgba(120, 120, 120, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
 }
 
-/* Responsivo */
-@media (max-width: 600px) {
-  .modal {
+.modalPresenca {
+  width: 460px;
+  max-width: 92%;
+  background: #5b73f2;
+  border-radius: 28px;
+  padding: 22px;
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.header h2 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.closePresenca {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.item {
+  background: white;
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.item span {
+  font-size: 20px;
+  font-weight: 800;
+  color: #5b73f2;
+}
+
+.item input {
+  display: none;
+}
+
+.checkboxCustom {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #bdbdbd;
+}
+
+.item input:checked + .checkboxCustom {
+  border-color: #5b73f2;
+}
+
+.item input:checked + .checkboxCustom::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: #4cd964;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(6px, 6px);
+}
+
+
+/* ============================= */
+/* RESPONSIVIDADE */
+/* ============================= */
+
+@media (max-width: 1024px) {
+  .modalRacha {
+    max-width: 90%;
+    padding: 28px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .info {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modalRacha {
+    width: 94%;
     padding: 24px;
     max-height: calc(100vh - 80px);
   }
 
   .title {
     font-size: 24px;
+    margin-bottom: 24px;
   }
 
   .info {
+    font-size: 16px;
+  }
+
+  .presenca {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .close {
+    font-size: 28px;
+    top: 14px;
+    right: 18px;
+  }
+
+  /* MODAL PRESENÇA */
+  .modalPresenca {
+    width: 94%;
+    padding: 20px;
+  }
+
+  .header h2 {
+    font-size: 20px;
+  }
+
+  .closePresenca {
+    font-size: 30px;
+  }
+
+  .item {
+    padding: 16px;
+  }
+
+  .item span {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalRacha {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    padding: 20px;
+  }
+
+  .overlayRacha {
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .info {
+    font-size: 15px;
+  }
+
+  .presenca {
+    font-size: 15px;
+    padding: 14px;
+  }
+
+  .close {
+    font-size: 26px;
+    top: 12px;
+    right: 14px;
+  }
+
+  /* MODAL PRESENÇA */
+  .modalPresenca {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 18px;
+  }
+
+  .lista {
+    max-height: calc(100vh - 140px);
+  }
+
+  .item span {
     font-size: 16px;
   }
 }
