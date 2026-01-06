@@ -29,6 +29,19 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
   const [modalPagamentosAberto, setModalPagamentosAberto] = useState(false);
 
   /* ======================
+     RESETAR ESTADOS QUANDO TROCAR DE RACHA
+  ====================== */
+  useEffect(() => {
+    // Limpar todos os estados quando trocar de racha
+    setSelecionados([]);
+    setPresencas([]);
+    setPagamentos({});
+    setGoleiros({});
+    setModalPresencaAberto(false);
+    setModalPagamentosAberto(false);
+  }, [rachaId]);
+
+  /* ======================
      CÁLCULOS
   ====================== */
   const totalPago = presencas.reduce((acc, p) => {
@@ -77,21 +90,43 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
     if (!rachaId) return;
 
     async function carregarPresencas() {
-      const dados = await getPresencasByRacha(rachaId as number);
+      try {
+        const dados = await getPresencasByRacha(rachaId as number);
+        
+        console.log(`📊 Presenças do racha ${rachaId}:`, dados);
 
-      setPresencas(dados);
-      setSelecionados(dados.filter(p => p.presenca).map(p => p.jogadorId));
+        // Normalizar os dados - se existe presença no banco, presenca = true
+        const presencasNormalizadas = dados.map(p => ({
+          ...p,
+          presenca: p.presenca ?? true // Se não tiver o campo, assume true
+        }));
 
-      const mapaPagamentos: Record<number, TipoPagamento> = {};
-      const mapaGoleiros: Record<number, boolean> = {};
+        setPresencas(presencasNormalizadas);
+        
+        if (dados.length > 0) {
+          // Todos os jogadores que têm registro são considerados presentes
+          const jogadoresPresentes = dados.map(p => p.jogadorId);
+          setSelecionados(jogadoresPresentes);
 
-      dados.forEach(p => {
-        mapaPagamentos[p.jogadorId] = p.tipoPagamento as TipoPagamento;
-        mapaGoleiros[p.jogadorId] = p.isGoleiro;
-      });
+          const mapaPagamentos: Record<number, TipoPagamento> = {};
+          const mapaGoleiros: Record<number, boolean> = {};
 
-      setPagamentos(mapaPagamentos);
-      setGoleiros(mapaGoleiros);
+          dados.forEach(p => {
+            mapaPagamentos[p.jogadorId] = p.tipoPagamento as TipoPagamento;
+            mapaGoleiros[p.jogadorId] = p.isGoleiro;
+          });
+
+          setPagamentos(mapaPagamentos);
+          setGoleiros(mapaGoleiros);
+          
+          console.log(`✅ Presenças carregadas para racha ${rachaId}:`, {
+            total: dados.length,
+            jogadores: jogadoresPresentes
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao carregar presenças:', error);
+      }
     }
 
     carregarPresencas();
@@ -215,13 +250,14 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
           <button
             className={styles.presenca}
             onClick={() => {
-              const temPresenca = presencas.some(p => p.presenca);
-              if (temPresenca) {
+              // Se já tem jogadores selecionados (dados do backend), vai direto pro modal de pagamentos
+              if (selecionados.length > 0) {
+                console.log('✅ Tem presenças cadastradas, abrindo modal de pagamentos');
                 setModalPagamentosAberto(true);
               } else {
+                console.log('➕ Não tem presenças, abrindo modal de seleção');
                 setModalPresencaAberto(true);
               }
-
             }}
           >
             Lista de presença
@@ -233,6 +269,13 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
       {modalPresencaAberto && (
         <div className={styles.overlayPresenca}>
           <div className={styles.modalPresenca}>
+            <button 
+              className={styles.close} 
+              onClick={() => setModalPresencaAberto(false)}
+            >
+              ✕
+            </button>
+
             <h2>JOGADORES</h2>
 
             {jogadores.map(j => (
@@ -269,6 +312,13 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
       {modalPagamentosAberto && (
         <div className={styles.overlayPresenca}>
           <div className={styles.jogadoresPresentes}>
+            <button 
+              className={styles.close} 
+              onClick={() => setModalPagamentosAberto(false)}
+            >
+              ✕
+            </button>
+
             <h2>Pagamentos</h2>
 
             {selecionados.map(id => {
