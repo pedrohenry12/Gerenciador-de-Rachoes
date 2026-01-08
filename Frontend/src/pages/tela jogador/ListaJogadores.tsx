@@ -1,4 +1,4 @@
-import styles from "./listaJogadores.module.css";
+import styles from "./listajogadores.module.css";
 import { deleteJogador } from "../../services/jogadoresServices";
 
 interface Jogador {
