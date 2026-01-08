@@ -5,6 +5,7 @@ import type { Presencas } from "../../types/Presencas";
 import { getRachaById } from "../../services/rachaServices";
 import { getJogadores } from "../../services/jogadoresServices";
 import { getPresencasByRacha } from "../../services/presencasServices";
+import { api } from "../../services/api";
 import styles from "./rachas.module.css";
 
 type RachasProps = {
@@ -206,18 +207,14 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
 
     await Promise.all(
       presencas.map(p =>
-        fetch("http://localhost:3000/presencas", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            rachaId: racha.id,
-            jogadorId: p.jogadorId,
-            presenca: p.presenca,
-            pagou: p.pagou || p.isGoleiro,
-            tipoPagamento: p.isGoleiro ? "GOLEIRO" : p.tipoPagamento,
-            valorPago: p.isGoleiro ? 0 : p.valorPago,
-            isGoleiro: p.isGoleiro
-          })
+        api.post("/presencas", {
+          rachaId: racha.id,
+          jogadorId: p.jogadorId,
+          presenca: p.presenca,
+          pagou: p.pagou || p.isGoleiro,
+          tipoPagamento: p.isGoleiro ? "GOLEIRO" : p.tipoPagamento,
+          valorPago: p.isGoleiro ? 0 : p.valorPago,
+          isGoleiro: p.isGoleiro
         })
       )
     );
