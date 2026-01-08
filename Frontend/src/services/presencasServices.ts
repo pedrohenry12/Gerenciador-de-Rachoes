@@ -3,7 +3,7 @@ import type { Presencas } from "../types/Presencas";
 
 export async function getPresencasByRacha(rachaId: number): Promise<Presencas[]> {
   const res = await fetch(
-    `http://localhost:3000/presencas/racha/${rachaId}`
+    `https://gerenciador-de-rachoes.onrender.com/presencas/racha/${rachaId}`
   );
 
   if (!res.ok) {
