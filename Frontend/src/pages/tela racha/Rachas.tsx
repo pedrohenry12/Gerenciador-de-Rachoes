@@ -45,11 +45,31 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
   /* ======================
      CÁLCULOS
   ====================== */
-  const totalPago = presencas.reduce((acc, p) => {
-    if ((p.pagou || p.isGoleiro) && p.tipoPagamento !== "NAOPAGOU") 
-    {return acc + p.valorPago;}
-    return acc;
-  }, 0);
+console.log('🔍 TODAS as presenças:', presencas);
+
+console.log('🔍 Detalhamento:', presencas.map(p => ({
+  jogadorId: p.jogadorId,
+  tipoPagamento: p.tipoPagamento,
+  valorPago: p.valorPago,
+  isGoleiro: p.isGoleiro,
+  vai_somar: !p.isGoleiro && (p.tipoPagamento === "PIX" || p.tipoPagamento === "DINHEIRO")
+})));
+
+const totalPago = presencas.reduce((acc, p) => {
+  // Goleiro não paga (valorPago = 0)
+  if (p.isGoleiro) return acc;
+
+  
+  // Só soma quem realmente pagou
+  if (p.tipoPagamento === "PIX" || p.tipoPagamento === "DINHEIRO") {
+    console.log(`➕ Somando jogador ${p.jogadorId}: R$ ${p.valorPago} (total: ${acc + p.valorPago})`);
+    return acc + p.valorPago;
+  }
+  
+  return acc;
+}, 0);
+
+console.log('💰 Total final:', totalPago);
 
   const saldoRacha = racha ? totalPago - racha.valorTotal : 0;
 
