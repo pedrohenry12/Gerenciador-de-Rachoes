@@ -3,6 +3,7 @@ import cors from "cors";
 import rachaRoutes from "./rotas/racha.routes";
 import jogadoresRoutes from "./rotas/jogadores.routes";
 import presencaRoutes from "./rotas/presenca.routes";
+import "dotenv/config";
 
 const app = express();
 

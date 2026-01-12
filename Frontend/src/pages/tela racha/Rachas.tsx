@@ -13,7 +13,7 @@ type RachasProps = {
   onClose: () => void;
 };
 
-type TipoPagamento = "PIX" | "DINHEIRO" | null;
+type TipoPagamento = "PIX" | "DINHEIRO" | "NAOPAGOU" | null;
 
 export default function Rachas({ rachaId, onClose }: RachasProps) {
   const [racha, setRacha] = useState<Racha | null>(null);
@@ -46,7 +46,8 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
      CÁLCULOS
   ====================== */
   const totalPago = presencas.reduce((acc, p) => {
-    if (p.pagou || p.isGoleiro) return acc + p.valorPago;
+    if ((p.pagou || p.isGoleiro) && p.tipoPagamento !== "NAOPAGOU") 
+    {return acc + p.valorPago;}
     return acc;
   }, 0);
 
@@ -175,11 +176,11 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
 
   function selecionarPagamento(jogadorId: number, tipo: TipoPagamento) {
     setPagamentos(prev => ({ ...prev, [jogadorId]: tipo }));
-    const valor = tipo && racha ? racha.valorPorJogador : 0;
+    const valor = (tipo && tipo !== "NAOPAGOU" && racha) ? racha.valorPorJogador : 0;
 
     atualizarPresenca(jogadorId, {
       tipoPagamento: tipo,
-      pagou: !!tipo,
+      pagou: tipo === "DINHEIRO" || tipo === "PIX",
       valorPago: valor
     });
   }
@@ -203,25 +204,64 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
   }
 
   async function salvarPresencas() {
-    if (!racha) return;
+  if (!racha) return;
 
-    await Promise.all(
-      presencas.map(p =>
-        api.post("/presencas", {
+  try {
+    const requests = selecionados.map(jogadorId => {
+      const ehGoleiro = goleiros[jogadorId] || false;
+      const tipoPgto = pagamentos[jogadorId];
+      const presencaExistente = presencas.find(p => p.jogadorId === jogadorId);
+      
+      const payload = {
+        pagou: ehGoleiro || tipoPgto === "PIX" || tipoPgto === "DINHEIRO",
+        tipoPagamento: ehGoleiro ? "GOLEIRO" : (tipoPgto || "NAOPAGOU"),
+        valorPago: ehGoleiro ? 0 : (
+          (tipoPgto === "PIX" || tipoPgto === "DINHEIRO") ? racha.valorPorJogador : 0
+        ),
+        isGoleiro: ehGoleiro
+      };
+      
+      console.log(`📦 Jogador ${jogadorId} - Presença ID: ${presencaExistente?.id}`, payload);
+      
+      if (presencaExistente?.id) {
+        // ✅ UPDATE - usa PUT /presencas/:id
+        console.log(`🔄 Atualizando presença ${presencaExistente.id}`);
+        return api.put(`/presencas/${presencaExistente.id}`, payload);
+      } else {
+        // ✅ CREATE - usa POST /presencas
+        console.log(`➕ Criando nova presença para jogador ${jogadorId}`);
+        return api.post("/presencas", {
           rachaId: racha.id,
-          jogadorId: p.jogadorId,
-          presenca: p.presenca,
-          pagou: p.pagou || p.isGoleiro,
-          tipoPagamento: p.isGoleiro ? "GOLEIRO" : p.tipoPagamento,
-          valorPago: p.isGoleiro ? 0 : p.valorPago,
-          isGoleiro: p.isGoleiro
-        })
-      )
-    );
+          jogadorId: jogadorId,
+          ...payload
+        });
+      }
+    });
+
+    console.log(`📤 Total de requests: ${requests.length}`);
+
+    await Promise.all(requests);
 
     alert("Presenças salvas!");
     setModalPagamentosAberto(false);
+    
+    // Recarrega as presenças
+    const dados = await getPresencasByRacha(rachaId as number);
+    setPresencas(dados);
+    
+  } catch (error) {
+    console.error('❌ Erro completo:', error);
+    
+    if (error instanceof Error) {
+      const axiosError = error as { response?: { data?: { error?: string }; status?: number } };
+      console.error('❌ Status:', axiosError.response?.status);
+      console.error('❌ Data:', axiosError.response?.data);
+      
+      const errorMessage = axiosError.response?.data?.error || error.message;
+      alert(`Erro ao salvar: ${errorMessage}`);
+    }
   }
+}
 
   if (!rachaId || loading || !racha) return null;
 
@@ -377,6 +417,24 @@ export default function Rachas({ rachaId, onClose }: RachasProps) {
                       }}
                     />
                     <span>Dinheiro</span>
+                  </label>
+
+                  {/* NÃO PAGOU */}
+                  <label className={styles.opcao}>
+                    <input
+                      type="checkbox"
+                      checked={pagamentos[id] === "NAOPAGOU"}
+                      onChange={() => selecionarPagamento(id, "NAOPAGOU")}
+                      disabled={goleiros[id]}
+                      style={{ 
+                        width: '18px', 
+                        height: '18px', 
+                        cursor: goleiros[id] ? 'not-allowed' : 'pointer',
+                        accentColor: '#4a69bd',
+                        opacity: goleiros[id] ? 0.5 : 1
+                      }}
+                    />
+                    <span>Não Pagou</span>
                   </label>
                 </div>
               );

@@ -21,6 +21,10 @@ export default function ListaJogadores({ jogadores, onDelete }: Props) {
         await deleteJogador(id);
         onDelete(id);
     }
+
+    function editarnaodisponivel() {
+        alert("Funcionalidade de edição disponivel em breve.");
+    }
   return (
     <div className={styles.card}>
       <h2 className={styles.title}>Jogadores</h2>
@@ -47,6 +51,7 @@ export default function ListaJogadores({ jogadores, onDelete }: Props) {
         src="https://img.icons8.com/?size=100&id=85934&format=png&color=000000"
         alt="Editar"
         className={styles.icon}
+        onClick={editarnaodisponivel}
       />
     </button>
   </div>

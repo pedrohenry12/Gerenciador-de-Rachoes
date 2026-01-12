@@ -8,35 +8,33 @@ datasource db {
 }
 
 model Racha {
-  id         Int        @id @default(autoincrement())
-  local      String?
-  data       String
-  hora       String?
-  valorTotal Float
+  id              Int        @id @default(autoincrement())
+  local           String?
+  data            String
+  hora            String?
+  valorTotal      Float
   valorPorJogador Float
-  createdAt  DateTime   @default(now())
-
-  presencas  Presenca[]
+  createdAt       DateTime   @default(now())
+  presencas       Presenca[]
 }
 
 model Jogador {
   id        Int        @id @default(autoincrement())
   nome      String
   createdAt DateTime   @default(now())
-
   presencas Presenca[]
 }
 
 model Presenca {
-  id            Int      @id @default(autoincrement())
+  id            Int     @id @default(autoincrement())
   rachaId       Int
   jogadorId     Int
   pagou         Boolean
   tipoPagamento String
   valorPago     Float
   isGoleiro     Boolean
+  jogador       Jogador @relation(fields: [jogadorId], references: [id])
+  racha         Racha   @relation(fields: [rachaId], references: [id])
 
-  racha   Racha   @relation(fields: [rachaId], references: [id])
-  jogador Jogador @relation(fields: [jogadorId], references: [id])
-    @@unique([rachaId, jogadorId])
+  @@unique([rachaId, jogadorId])
 }
